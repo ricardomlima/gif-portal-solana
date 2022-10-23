@@ -1,12 +1,14 @@
 import twitterLogo from "./assets/twitter-logo.svg"
 import "./App.css"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 
 // Constants
 const TWITTER_HANDLE = "ricardomlima89"
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`
 
 const App = () => {
+
+  const [walletAddress, setWalletAddress] = useState(null);
   /*
    * This function defines if the wallet is connected or not
    */
@@ -24,6 +26,11 @@ const App = () => {
             "Connect with public key: !",
             response.publicKey.toString()
           );
+
+          /*
+           * Users public key stored in state to be used later
+           */
+          setWalletAddress(response.publicKey.toString());
         }
       } else {
         console.log("Solana object not found!");
@@ -33,7 +40,17 @@ const App = () => {
     }
   }
 
-  const connectWallet = async () => {};
+  const connectWallet = async () => {
+    const { solana } = window;
+    if (solana) {
+      const response = await solana.connect();
+      console.log(
+        "Conectado com a Chave Pública: ",
+        response.publicKey.toString()
+      );
+      setWalletAddress(response.publicKey.toString());
+    }
+  };
 
   /*
    * Show this when user is not connected yet
@@ -63,7 +80,7 @@ const App = () => {
         <div className="header-container">
           <p className="header">🖼 Meu Portal de GIF 🖼</p>
           <p className="sub-text">Veja sua coleção de GIF no metaverso ✨</p>
-          {renderNotConnectedContainer()}
+          {!walletAddress && renderNotConnectedContainer()}
         </div>
         <div className="footer-container">
           <img alt="Twitter Logo" className="twitter-logo" src={twitterLogo} />
