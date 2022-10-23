@@ -33,6 +33,18 @@ const App = () => {
     }
   }
 
+  const connectWallet = async () => {};
+
+  /*
+   * Show this when user is not connected yet
+   */
+  const renderNotConnectedContainer = () => (
+    <button
+      className="cta-button connect-wallet-button"
+      onClick={connectWallet}
+    >Conecte sua carteira</button>
+  )
+
   useEffect(() => {
     const onLoad = async () => {
       await checkIfWalletIsConnected();
@@ -51,6 +63,7 @@ const App = () => {
         <div className="header-container">
           <p className="header">🖼 Meu Portal de GIF 🖼</p>
           <p className="sub-text">Veja sua coleção de GIF no metaverso ✨</p>
+          {renderNotConnectedContainer()}
         </div>
         <div className="footer-container">
           <img alt="Twitter Logo" className="twitter-logo" src={twitterLogo} />
