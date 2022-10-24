@@ -6,6 +6,13 @@ import { useEffect, useState } from "react"
 const TWITTER_HANDLE = "ricardomlima89"
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`
 
+const TEST_GIFS = [
+  "https://media.giphy.com/media/l3V0ma60jQqGCoJyM/giphy.gif",
+  "https://media.giphy.com/media/PApUlVfEFmZAQ/giphy.gif",
+  "https://media.giphy.com/media/ToMjGpocv0a1U7zbXQ4/giphy.gif",
+  "https://media.giphy.com/media/13ea4eXuOuQsmY/giphy.gif",
+];
+
 const App = () => {
 
   const [walletAddress, setWalletAddress] = useState(null);
@@ -62,6 +69,18 @@ const App = () => {
     >Conecte sua carteira</button>
   )
 
+  const renderConnectedContainer = () => (
+    <div className="connected-container">
+      <div className="gif-grid">
+        {TEST_GIFS.map((gif) => (
+          <div className="gif-item" key={gif}>
+            <img src={gif} alt={gif} />
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+
   useEffect(() => {
     const onLoad = async () => {
       await checkIfWalletIsConnected();
@@ -78,9 +97,10 @@ const App = () => {
     <div className="App">
       <div className="container">
         <div className="header-container">
-          <p className="header">🖼 Meu Portal de GIF 🖼</p>
+          <p className="header">🖼 GIF da Galera 🖼</p>
           <p className="sub-text">Veja sua coleção de GIF no metaverso ✨</p>
           {!walletAddress && renderNotConnectedContainer()}
+          {walletAddress && renderConnectedContainer()}
         </div>
         <div className="footer-container">
           <img alt="Twitter Logo" className="twitter-logo" src={twitterLogo} />
