@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import twitterLogo from "./assets/twitter-logo.svg"
 import "./App.css"
 import idl from './idl.json';
+import kp from './keypair.json';
 import { Connection, PublicKey, clusterApiUrl } from '@solana/web3.js';
 import { Program, web3, AnchorProvider } from '@project-serum/anchor';
 
@@ -14,7 +15,9 @@ const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`
 const { SystemProgram, Keypair } = web3;
 
 // Creates a key pair for the account that'll store the gif data
-const baseAccount = Keypair.generate();
+const arr = Object.values(kp._keypair.secretKey);
+const secret = new Uint8Array(arr);
+const baseAccount = web3.Keypair.fromSecretKey(secret);
 
 // returns our program id from the IDL
 const programID = new PublicKey(idl.metadata.address);
