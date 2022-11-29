@@ -227,8 +227,8 @@ const App = () => {
     <div className="App">
       <div className="container">
         <div className="header-container">
-          <p className="header">🖼 GIF da Galera 🖼</p>
-          <p className="sub-text">Veja sua coleção de GIF no metaverso ✨</p>
+          <p className="header">🖼 GIF Library 🖼</p>
+          <p className="sub-text">Check your gif collection in the metaverse ✨</p>
           {!walletAddress && renderNotConnectedContainer()}
           {walletAddress && renderConnectedContainer()}
         </div>
@@ -239,7 +239,7 @@ const App = () => {
             href={TWITTER_LINK}
             target="_blank"
             rel="noreferrer"
-          >{`feito com ❤️ por @${TWITTER_HANDLE}`}</a>
+          >{`made with ❤️ by @${TWITTER_HANDLE}`}</a>
         </div>
       </div>
     </div>
